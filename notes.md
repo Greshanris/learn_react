@@ -127,5 +127,25 @@ since, we are using ``vite`` framework, we will use framework guides to install 
 
 # A React interview question on counter (video: 8[chai_aur_react_8](https://www.youtube.com/watch?v=tOYkV6Yhrhs&list=PLu71SKxNbfoDqgPchmvIsL4hTnJIrtige&index=8))
 
+```javascript
+const addValue = () => {
+    // counter++; // now, counter++ will not update counter, or does not need to be changed, there is already a setCounter;
+
+    // setCounter (()=>{}) , setCounter accepts a callback function, which will give the previous state of counter, and we can use it to update the value of counter.
+    // prevCounter(anyname can be given, it's just an argument to be made) gives the existing state(last updated state) of counter
+    setCounter(prevCounter => prevCounter + 1); // setCounter(new_value); we can use another name except setCounter();
+    // different names like prevCounter on one, and counter one will pose a problem in code readability, so we can use the same name for both.
+
+    setCounter(prevCounter => prevCounter + 1); // interview question: duplicates the value
+    setCounter(prevCounter => prevCounter + 1); 
+    setCounter(prevCounter => prevCounter + 1); 
+    setCounter(prevCounter => prevCounter + 1); // what will be the value of counter, if we call the function:21
+    // useState is asynchronous, so it will not update the value of counter immediately, but it will update the value of counter in the next render. (batches update, and same work is being done regularly here)
+  }
+```
+
+``Question:`` What will be the value of counter, if we call the function ``setCounter`` multiple times duplicating the values?
+
+``Answer:`` The counter value which we set inside the setCounter function, will not be updated immediately, but it will be updated in the next render. So, the value of counter will be 21(since, we did the setCouter(counter + 1)), because the value of counter will be updated in the next render, and the value of counter will be updated 5 times, so the value of counter will be 21.
 
 
